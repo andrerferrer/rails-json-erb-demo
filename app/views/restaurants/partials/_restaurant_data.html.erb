@@ -1,0 +1,19 @@
+<li class="d-flex align-items-center" id="<%= restaurant.name %>">
+  <%= link_to restaurant.name, restaurant_path(restaurant)  %>
+
+  <%# this is another link to nowhere %>
+  <%= content_tag :button, 
+                  "<i class='far fa-edit'></i>".html_safe, 
+                  href: 'javascript:;', 
+                  class: 'edit-btn' %>
+                  
+  <%= text_field :restaurant, 
+                 :name, 
+                 id: "edit-form-restaurant-#{restaurant.id}",
+                 placeholder: "Rename #{restaurant.name}", 
+                 class: 'hidden edit-input' %>
+
+  <%# This is a link to nowhere, the `javascript:;` means the JS no-operator %>
+  <%= link_to '❌', 'javascript:;', id: "delete-restaurant-#{restaurant.id}" %>
+</li>
+
