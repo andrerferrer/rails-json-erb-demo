@@ -21,6 +21,7 @@ class RestaurantsController < ApplicationController
     set_restaurant
     @old_name = @restaurant.name
     @restaurant.update name: params[:rename]
+    render json: { html: render_to_string('restaurants/partials/restaurant_data', restaurant: @restaurant) }
   end
 
   def destroy
