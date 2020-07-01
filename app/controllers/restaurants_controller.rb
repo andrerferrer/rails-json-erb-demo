@@ -21,14 +21,10 @@ class RestaurantsController < ApplicationController
     set_restaurant
     @old_name = @restaurant.name
     @restaurant.update name: params[:rename]
-    # This was supposed to work, but the JBUILDER gem breaks this
-    # This is the workaround
-    # render plain: { html: render_to_string('restaurants/partials/restaurant_data', restaurant: @restaurant) }.to_json, content_type: 'application/json'
     html = render_to_string('restaurants/partials/_restaurant_data', 
                              locals: { restaurant: @restaurant },
                              layout: false)
-    puts htmlActionView::MissingTemplate
-    render json: { html: html }
+    render json: { html: html, oldName: @old_name }
   end
 
   def destroy
