@@ -17,6 +17,11 @@ const hideUnhideElements = (event) => {
   if (!currentInput.classList.contains('hidden')) currentInput.focus()
 }
 
+const refreshWithUpdated = (json) => {
+  document.getElementById(json.oldName)
+        .innerHTML = json.html
+}
+
 const updateRestaurantName = (event) => {
   // only works if the pressed key was the ENTER key
   if (event.key == "Enter") {
@@ -37,8 +42,9 @@ const updateRestaurantName = (event) => {
       data: formData,
       contentType: 'application/json',
       success: function(data) {
-        // console.log(data) 
-        
+        console.log(data)
+        refreshWithUpdated(data)
+
         // blur the input after pressing enter
         currentInput.blur()
       },
