@@ -1,6 +1,6 @@
 import Rails from '@rails/ujs'
 
-const hideUnhideElements = (event) => {
+const toggleHiddenOnElements = (event) => {
 
   const toggleHidden = (element) => {
     element.classList.toggle('hidden')
@@ -38,7 +38,6 @@ const updateRestaurantName = (event) => {
     Rails.ajax({
       url: `/restaurants/${id}`,
       type: "put",
-      // if we had data, we could add it like this
       data: formData,
       contentType: 'application/json',
       success: function(data) {
@@ -65,13 +64,13 @@ const editRestaurantName = () => {
 
     // for each edit btn we add a click event to hide the btn and show the input
     editBtns.forEach( (editBtn) => {
-      editBtn.addEventListener('click', hideUnhideElements)
+      editBtn.addEventListener('click', toggleHiddenOnElements)
     })
 
     // for each edit input we add a click event to hide the input and show the btn
     editInputs.forEach((editInput) => {
       
-      editInput.addEventListener('blur', hideUnhideElements)
+      editInput.addEventListener('blur', toggleHiddenOnElements)
 
       // we'll also add an event listener to check if the user press enter, 
       // if so, we update the name in the DB
