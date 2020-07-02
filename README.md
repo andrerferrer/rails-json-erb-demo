@@ -1,14 +1,14 @@
 # GOAL
 
-This is a demo to show-case how to implement some `AJAX` using `Javascript` and a `js.erb` view, which updates the DOM element.
+This is a demo to show-case how to implement some `AJAX` using a `JSON` response from the controller and some `Javascript` code, which updates the DOM element.
 
-It was created from this [boilerplate](https://github.com/andrerferrer/rails-ajax-demo).
+It was created from this [boilerplate](https://github.com/andrerferrer/rails-js-erb-demo#goal).
 
 [You can also check my other demos](https://github.com/andrerferrer/dedemos/blob/master/README.md#ded%C3%A9mos).
 
 ## What needs to be done?
 
-### Create a form
+### Create an input
 
 In the [view]():
 
@@ -20,7 +20,7 @@ In the [view]():
                class: 'hidden edit-input' %>
 ```
 
-### Make an AJAX request with this form
+### Make an AJAX request from this input
 
 In your [javascript]():
 
@@ -39,14 +39,16 @@ const updateRestaurantName = (event) => {
 
     // make the AJAX request
     Rails.ajax({
+      // Make a PUT request to the correct path
       url: `/restaurants/${id}`,
       type: "put",
-      // if we had data, we could add it like this
+      // With this data
       data: formData,
       contentType: 'application/json',
       success: function(data) {
-        // console.log(data) 
-        
+        // receive a json as a response and refresh the DOM with it
+        refreshWithUpdated(data)
+
         // blur the input after pressing enter
         currentInput.blur()
       },
@@ -54,37 +56,6 @@ const updateRestaurantName = (event) => {
     })
   }
 }
-```
-
-### Handle it in the Mantra 🕉
-
-Create the route (add `:update`):
-
-```ruby
-  resources :restaurants, only: %i[index show new create destroy update] do
-  # etc
-```
-
-Add the [controller]():
-
-```ruby
-  def update
-    set_restaurant
-    @old_name = @restaurant.name
-    @restaurant.update name: params[:rename]
-  end
-```
-
-### Finish it with a Javascript view, updating the DOM
-
-In the [view]() we will update the DOM:
-
-```js
-document.getElementById('<%= @old_name %>')
-        .innerHTML = `
-          <%= j(render 'restaurants/partials/restaurant_data', 
-                       restaurant: @restaurant ) %>
-        `
 ```
 
 And we're good to go 🤓
