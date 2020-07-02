@@ -2,14 +2,10 @@ import Rails from '@rails/ujs'
 
 const toggleHiddenOnElements = (event) => {
 
-  const toggleHidden = (element) => {
-    element.classList.toggle('hidden')
-  }
-
   // select the parent element and toggle hidden on all the children elements
   const parentElement = event.currentTarget.parentElement
   Array.from(parentElement.children).forEach((childElement) => {
-    toggleHidden(childElement)
+    childElement.classList.toggle('hidden')
   })
 
   // focus on input if it's no longer hidden
